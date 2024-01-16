@@ -5,11 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity // JPA 어노테이션, 테이블이 생성됨
 @AllArgsConstructor
 @ToString
+@NoArgsConstructor //기본 생성자 추가 어노테이션
 public class Article {
 
     @Id @GeneratedValue
