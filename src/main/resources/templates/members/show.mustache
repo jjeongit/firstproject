@@ -1,0 +1,26 @@
+{{>layouts/header}}
+<!--<form class="container" action="/members/{{member.id}}/delete" method="post">-->
+<form class="container" action="/members/delete" method="post">
+<input type="hidden" name="id" value="{{member.id}}">
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Email</th>
+        <th scope="col">Password</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#member}}
+        <tr>
+            <th>{{id}}</th>
+            <td>{{email}}</td>
+            <td>{{password}}</td>
+        </tr>
+    {{/member}}
+    </tbody>
+</table>
+<a href="/members/{{member.id}}/edit" class="btn btn-primary">수정하기</a>
+<button type="submit" class="btn btn-danger">삭제하기</button>
+<a href="/members">Go to member List</a>
+{{>layouts/footer}}
