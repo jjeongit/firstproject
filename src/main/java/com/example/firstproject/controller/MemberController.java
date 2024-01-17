@@ -86,8 +86,8 @@ public class MemberController {
             log.info(target.getId().toString());
             log.info(target.toString());
             log.info(memberEntity.toString());
-            //memberRepository.delete(target);
-            memberRepository.delete(memberEntity);
+            memberRepository.delete(target);
+            //memberRepository.delete(memberEntity);
             rttr.addFlashAttribute("msg", "삭제 완료!");
         }
         return "redirect:/members";
