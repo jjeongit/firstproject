@@ -26,6 +26,17 @@ public class Article {
 
     @Column
     private String content;
+
+    public void patch(Article article) {
+        if(article.title != null)
+            this.title = article.title;
+        if(article.content != null)
+            this.content = article.content;
+
+        /* 수정할 데이터(article)이
+        있다면 this(target 기존데이터)의 값을 갱신해준다.
+        없다면 target 의 값이 그대로 간다. */
+    }
 /*
 
     @AllArgsConstructor
