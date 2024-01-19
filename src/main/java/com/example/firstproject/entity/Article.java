@@ -15,6 +15,7 @@ public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // DB가 id 자동생성
+    //(strategy = GenerationType.IDENTITY) data.sql에 id값을 안적어도 자동생성 해줌
     private Long id;
 
 /*    public Long getId() {
