@@ -6,8 +6,10 @@ import com.example.firstproject.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service // 서비스 객체 선언
@@ -63,5 +65,23 @@ public class ArticleService {
         articleRepository.delete(target);
         //return ResponseEntity.status(HttpStatus.OK).body(null);
         return target;
+    }
+
+    @Transactional // 붙이지 않으면 마지막에 에러가 나도 DB에 저장이 되거나 반영이 되어버린다. 하지만 트랜잭션을 붙이면 롤백되어 반영되지 않는다.
+    public List<Article> createArticles(List<ArticleForm> dtos) {
+        // 1. dto 묶음(리스트)을 엔티티 묶음(리스트)으로 변환하기
+        List<Article> articleList = dtos.stream()
+                .map(dto -> dto.toEntity())
+                .collect(Collectors.toList());
+
+        // 2. 엔티티  묶음(리스트)을 DB에 저장하기
+        articleList.forEach(article -> articleRepository.save(article));
+
+        // 3. 강제로 에러를 발생시키기
+        articleRepository.findById(-1L)
+                .orElseThrow(() -> new IllegalArgumentException("결제 실패!")); // 찾는 데이터가 없으면 예외 발생
+
+        // 4. 결과 값 반환하기
+        return articleList;
     }
 }
